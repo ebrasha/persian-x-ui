@@ -1,9 +1,11 @@
 # نسخه فارسی پنل x-ui
 
 پنل فارسی xray که از چند پروتکل و چند کاربر پشتیبانی می کند. 
+
 تقدیم به همه فارسی زبانان جهان
 # 🤵 برنامه نویس و توسعه دهنده
 ابراهیم شفیعی
+
 تماس :  Prof.Shafiei@Gmail.com 
 # امکانات 
 
@@ -36,7 +38,11 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
 bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/ubuntux64-installer.sh)
 ```
 
- 
+ # اطلاعات لاگین
+ - پورت 1366
+ - نام کاربری  ebrasha
+ - رمز عبور  ebrasha
+
 
 ## استفاده از ربات تلگرام 
 
