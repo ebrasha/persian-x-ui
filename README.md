@@ -4,8 +4,6 @@
 
 تقدیم به همه فارسی زبانان جهان
 
-
-![](media/panel.jpg)
 ![](https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/media/panel.jpg)
 
 
