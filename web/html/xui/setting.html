@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .}}
+<style>
+    @media (min-width: 769px) {
+        .ant-layout-content {
+            margin: 24px 16px;
+        }
+    }
+
+    .ant-col-sm-24 {
+        margin-top: 10px;
+    }
+
+    .ant-tabs-bar {
+        margin: 0;
+    }
+
+    .ant-list-item {
+        display: block;
+    }
+
+    .ant-tabs-top-bar {
+        background: white;
+    }
+</style>
+<body>
+<a-layout id="app" v-cloak>
+    {{ template "commonSider" . }}
+    <a-layout id="content-layout">
+        <a-layout-content>
+            <a-spin :spinning="spinning" :delay="500" tip="loading">
+                <a-space direction="vertical">
+                    <a-space direction="horizontal">
+                        <a-button type="primary" :disabled="saveBtnDisable" @click="updateAllSetting">ذخیره پیکربندی</a-button>
+                        <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel">راه اندازی مجدد</a-button>
+                    </a-space>
+                    <a-tabs default-active-key="1">
+                        <a-tab-pane key="1" tab="پیکربندی پنل">
+                            <a-list item-layout="horizontal" style="background: white">
+                                <setting-list-item type="text" title="پنل مانیتورینگ آی پی" desc="به‌طور پیش‌فرض، آن را برای نظارت بر همه IP‌ها خالی بگذارید و پنل را مجدداً راه‌اندازی کنید تا اعمال شود" v-model="allSetting.webListen"></setting-list-item>
+                                <setting-list-item type="number" title="پورت پنل" desc="پنل را مجدداً راه اندازی کنید تا اعمال شود" v-model.number="allSetting.webPort"></setting-list-item>
+                                <setting-list-item type="text" title="مسیر فایل کلید عمومی ssl پنل" desc="یک مسیر ثابت که با '/' شروع می شود را پر کنید، پنل را مجددا راه اندازی کنید تا اعمال شود" v-model="allSetting.webCertFile"></setting-list-item>
+                                <setting-list-item type="text" title="مسیر فایل کلید ssl پنل" desc="یک مسیر ثابت که با '/' شروع می شود را پر کنید، پنل را مجددا راه اندازی کنید تا اعمال شود" v-model="allSetting.webKeyFile"></setting-list-item>
+                                <setting-list-item type="text" title="مسیر ریشه url پنل" desc="باید با '/' شروع شود و با '/' تمام شود، پنل را مجدداً راه اندازی کنید تا اعمال شود" v-model="allSetting.webBasePath"></setting-list-item>
+                            </a-list>
+                        </a-tab-pane>
+                        <a-tab-pane key="2" tab="تنظیمات کاربر">
+                            <a-form style="background: white; padding: 20px">
+                                <a-form-item label="نام کاربری اصلی">
+                                    <a-input v-model="user.oldUsername" style="max-width: 300px"></a-input>
+                                </a-form-item>
+                                <a-form-item label="رمز عبور قدیمی">
+                                    <a-input type="password" v-model="user.oldPassword"
+                                             style="max-width: 300px"></a-input>
+                                </a-form-item>
+                                <a-form-item label="شناسه کاربری جدید">
+                                    <a-input v-model="user.newUsername" style="max-width: 300px"></a-input>
+                                </a-form-item>
+                                <a-form-item label="رمز عبور جدید">
+                                    <a-input type="password" v-model="user.newPassword"
+                                             style="max-width: 300px"></a-input>
+                                </a-form-item>
+                                <a-form-item>
+                                    <a-button type="primary" @click="updateUser">修改</a-button>
+                                </a-form-item>
+                            </a-form>
+                        </a-tab-pane>
+                        <a-tab-pane key="3" tab="xray تنظیمات مرتبط">
+                            <a-list item-layout="horizontal" style="background: white">
+                                <setting-list-item type="textarea" title="xray قالب پیکربندی" desc="فایل پیکربندی نهایی xray را بر اساس این الگو ایجاد کنید، پنل را مجدداً راه اندازی کنید تا اعمال شود" v-model="allSetting.xrayTemplateConfig"></setting-list-item>
+                            </a-list>
+                        </a-tab-pane>
+                        <a-tab-pane key="4" tab="تنظیمات ربات تلگرام">
+                            <a-list item-layout="horizontal" style="background: white">
+                                <setting-list-item type="switch" title="فعال کردن ربات تلگرام" desc="پنل را مجدداً راه اندازی کنید تا اعمال شود"  v-model="allSetting.tgBotEnable"></setting-list-item>
+                                <setting-list-item type="text" title="ربات تلگرام TOKEN" desc="پنل را مجدداً راه اندازی کنید تا اعمال شود"  v-model="allSetting.tgBotToken"></setting-list-item>
+                                <setting-list-item type="number" title="ربات تلگرام ChatId" desc="پنل را مجدداً راه اندازی کنید تا اعمال شود"  v-model.number="allSetting.tgBotChatId"></setting-list-item>
+                                <setting-list-item type="text" title="زمان اطلاع رسانی ربات تلگرام" desc="استفاده کنید Crontab قالب زمان بندی، پنل را مجددا راه اندازی کنید تا اعمال شود "  v-model="allSetting.tgRunTime"></setting-list-item>
+                            </a-list>
+                        </a-tab-pane>
+                        <a-tab-pane key="5" tab="منطقه زمانی">
+                            <a-list item-layout="horizontal" style="background: white">
+                                <setting-list-item type="text" title="منطقه زمانی" desc="کار برنامه ریزی شده مطابق با زمان در منطقه زمانی اجرا می شود و پنل را مجدداً راه اندازی می کند تا اعمال شود" v-model="allSetting.timeLocation"></setting-list-item>
+                            </a-list>
+                        </a-tab-pane>
+                    </a-tabs>
+                </a-space>
+            </a-spin>
+        </a-layout-content>
+    </a-layout>
+</a-layout>
+{{template "js" .}}
+{{template "component/setting"}}
+<script>
+
+    const app = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data: {
+            siderDrawer,
+            spinning: false,
+            oldAllSetting: new AllSetting(),
+            allSetting: new AllSetting(),
+            saveBtnDisable: true,
+            user: {},
+        },
+        methods: {
+            loading(spinning = true) {
+                this.spinning = spinning;
+            },
+            async getAllSetting() {
+                this.loading(true);
+                const msg = await HttpUtil.post("/xui/setting/all");
+                this.loading(false);
+                if (msg.success) {
+                    this.oldAllSetting = new AllSetting(msg.obj);
+                    this.allSetting = new AllSetting(msg.obj);
+                    this.saveBtnDisable = true;
+                }
+            },
+            async updateAllSetting() {
+                this.loading(true);
+                const msg = await HttpUtil.post("/xui/setting/update", this.allSetting);
+                this.loading(false);
+                if (msg.success) {
+                    await this.getAllSetting();
+                }
+            },
+            async updateUser() {
+                this.loading(true);
+                const msg = await HttpUtil.post("/xui/setting/updateUser", this.user);
+                this.loading(false);
+                if (msg.success) {
+                    this.user = {};
+                }
+            },
+            async restartPanel() {
+                await new Promise(resolve => {
+                    this.$confirm({
+                        title: 'پنل راه اندازی مجدد',
+                        content: 'آیا مطمئن هستید که می خواهید پنل را دوباره راه اندازی کنید؟ روی OK کلیک کنید و بعد از 3 ثانیه راه اندازی مجدد می شود. اگر پس از راه اندازی مجدد نمی توانید به پنل دسترسی پیدا کنید، لطفاً برای بررسی اطلاعات گزارش پنل به سرور بروید.',
+                        okText: 'تایید',
+                        cancelText: 'لغو کنید',
+                        onOk: () => resolve(),
+                    });
+                });
+                this.loading(true);
+                const msg = await HttpUtil.post("/xui/setting/restartPanel");
+                this.loading(false);
+                if (msg.success) {
+                    this.loading(true);
+                    await PromiseUtil.sleep(5000);
+                    location.reload();
+                }
+            }
+        },
+        async mounted() {
+            await this.getAllSetting();
+            while (true) {
+                await PromiseUtil.sleep(1000);
+                this.saveBtnDisable = this.oldAllSetting.equals(this.allSetting);
+            }
+        },
+    });
+
+</script>
+</body>
+</html>

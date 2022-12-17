@@ -1,0 +1,38 @@
+{{define "form/streamKCP"}}
+<a-form layout="inline">
+    <a-form-item label="پوشش">
+        <a-select v-model="inbound.stream.kcp.type" style="width: 280px;">
+            <a-select-option value="none">هیچ (پوششی نداشته باشید)</a-select-option>
+            <a-select-option value="srtp">srtp (پوشش تماس ویدیویی)</a-select-option>
+            <a-select-option value="utp">utp（پوشش BT دانلود）</a-select-option>
+            <a-select-option value="wechat-video">ویچت-ویدئو (پوشش ویدئوی وی چت )</a-select-option>
+            <a-select-option value="dtls">dtls（پوشش DTLS 1.2 پکیج）</a-select-option>
+            <a-select-option value="wireguard">wireguard（پوشش wireguard پکیج）</a-select-option>
+        </a-select>
+    </a-form-item>
+    <a-form-item label="کلمه عبور">
+        <a-input v-model.number="inbound.stream.kcp.seed"></a-input>
+    </a-form-item>
+    <a-form-item label="mtu">
+        <a-input type="number" v-model.number="inbound.stream.kcp.mtu"></a-input>
+    </a-form-item>
+    <a-form-item label="tti (ms)">
+        <a-input type="number" v-model.number="inbound.stream.kcp.tti"></a-input>
+    </a-form-item>
+    <a-form-item label="uplink capacity (MB/S)">
+        <a-input type="number" v-model.number="inbound.stream.kcp.upCap"></a-input>
+    </a-form-item>
+    <a-form-item label="downlink capacity (MB/S)">
+        <a-input type="number" v-model.number="inbound.stream.kcp.downCap"></a-input>
+    </a-form-item>
+    <a-form-item label="congestion">
+        <a-switch v-model="inbound.stream.kcp.congestion"></a-switch>
+    </a-form-item>
+    <a-form-item label="read buffer size (MB)">
+        <a-input type="number" v-model.number="inbound.stream.kcp.readBuffer"></a-input>
+    </a-form-item>
+    <a-form-item label="write buffer size (MB)">
+        <a-input type="number" v-model.number="inbound.stream.kcp.writeBuffer"></a-input>
+    </a-form-item>
+</a-form>
+{{end}}
