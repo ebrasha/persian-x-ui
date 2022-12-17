@@ -46,6 +46,16 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
 bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/ubuntux64-installer.sh)
 ```
 
+# آموزش حذف
+
+#### برای همه سیتسم عامل ها 
+
+```
+bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/uninstaller.sh)
+```
+
+
+
  # اطلاعات لاگین
  - پورت 1366
  - نام کاربری  ebrasha
