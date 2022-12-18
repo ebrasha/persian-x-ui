@@ -129,7 +129,16 @@ install_x-ui() {
     /usr/local/x-ui-persian/x-ui setting -username  ebrasha  -password ebrasha
     /usr/local/x-ui-persian/x-ui setting -port 1366
 
+    echo "# Created By persian-x-ui : start" >> /etc/sysctl.conf
+    echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+    echo "net.ipv4.conf.all.accept_redirects = 0" >> /etc/sysctl.conf
+    echo "# Created By persian-x-ui : End" >> /etc/sysctl.conf
+    sysctl -p
+    clear
+    
     config_after_install
+    
+    
     echo -e "If it is a fresh installation, the default web port is ${green}1366${plain}，The default username and password are ${green}ebrasha${plain}"
     echo -e "Please make sure that this port is not occupied by other programs，${yellow}And make sure port 1366 is released${plain}"
         echo -e "If you want to modify 1366 to other ports, enter the x-ui command to modify, and also make sure that the port you modify is also allowed"
@@ -139,6 +148,7 @@ install_x-ui() {
     systemctl daemon-reload
     systemctl enable x-ui
     systemctl start x-ui
+    
     echo -e "${green}persian-x-ui installation is complete, the panel is activated, "
     echo -e ""
     echo -e "x-ui How to use the management script: "
@@ -157,7 +167,11 @@ install_x-ui() {
     echo -e "x-ui-persian update       - update x-ui-persian panel"
     echo -e "x-ui-persian install      - Install the x-ui-persian panel"
     echo -e "x-ui-persian uninstall    - Uninstall the x-ui-persian panel"
-    echo -e "----------------------------------------------"
+    echo -e "----------------------------------------------${plain}"
+
+
+
+
 }
 
 echo -e "${green}start installation${plain}"
