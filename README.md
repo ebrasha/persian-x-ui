@@ -61,6 +61,9 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
  - نام کاربری  ebrasha
  - رمز عبور  ebrasha
 
+# مدیریت از طریق ترمینال
+
+برای مدیریت از طریق ترمینال دستور x-ui-persian را تایپ کنید و دکمه اینتر را بفشارید
 
 ## استفاده از ربات تلگرام 
 
