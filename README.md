@@ -57,6 +57,16 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
 bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/uninstaller.sh)
 ```
 
+# 💨  استفاده از الگوریتم bbr در سرور
+
+#### برای همه سیتسم عامل ها 
+
+```
+bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-x-ui/main/bbr.sh)
+```
+
+
+
 
 
  # 👁️‍🗨️ اطلاعات لاگین
