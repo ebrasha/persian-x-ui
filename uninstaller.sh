@@ -9,7 +9,7 @@ cur_dir=$(pwd)
 
 confirm() {
   if [[ $# > 1 ]]; then
-    echo && read -p "$1 [default$2]: " temp
+    echo && read -p "$1 [default $2]: " temp
     if [[ x"${temp}" == x"" ]]; then
       temp=$2
     fi
@@ -64,5 +64,8 @@ uninstalling() {
 
 # check root
 [[ $EUID -ne 0 ]] && echo -e "${red}mistake：${plain} This script must be run with the root user！\n" && exit 1
-
-uninstalling
+if [[ ! -d "/usr/local/x-ui-persian/" ]]; then
+  echo -e "${red}Error: Cannot remove x-ui-Persian, because it has not been set up on this server.${plain}"
+else
+  uninstalling
+fi
