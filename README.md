@@ -119,3 +119,12 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
 
  اگر باخطایی مواجه شدید لطفاً به Prof.Shafiei@Gmail.com گرازش کنید تا ما در کمترین زمان آن خطا را رفع کنیم
 
+
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/abdal-security-group/persian-x-ui.svg)](https://starchart.cc/abdal-security-group/persian-x-ui)
+
+
+
