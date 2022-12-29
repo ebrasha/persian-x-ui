@@ -112,8 +112,12 @@ bash <(curl -Ls  https://raw.githubusercontent.com/abdal-security-group/persian-
  
 
 ## ❤️ کمک ها مالی به پروژه 
-> https://donate.abdalagency.ir/ 
 
+> USDT:      TXLasexoQTjKMoWarikkfYRYWWXtbaVadB
+
+> bitcoin:   19LroTSwWcEBY2XjvgP6X4d6ECZ17U2XsK
+
+> For Iranian People -> MellatBank : 6104-3378-5301-4247
 
 ## ❗ گزارش خطا در این پروژه 
 
